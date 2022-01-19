@@ -499,3 +499,19 @@ Received Import Request.
 Start importing Assets/Prefabs/Animal_Stag_02.prefab using Guid(b168104322a055c1abca8bb18fba5c5e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '386227ebb18bb0d3578c33d702998f16') in 0.014200 seconds 
   Import took 0.017028 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 497.241367 seconds.
+  path: Assets/New Render Texture.renderTexture
+  artifactKey: Guid(b6654072bc816fcb793eab7aa8e32951) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/New Render Texture.renderTexture using Guid(b6654072bc816fcb793eab7aa8e32951) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7cfc2f9b1adb42d019cac80fa880b700') in 0.008673 seconds 
+  Import took 0.011126 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 90.789512 seconds.
+  path: Assets/TextMesh Pro
+  artifactKey: Guid(f54d1bd14bd3ca042bd867b519fee8cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TextMesh Pro using Guid(f54d1bd14bd3ca042bd867b519fee8cc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16b4cbde9565bf190136f1148817e1ea') in 0.000692 seconds 
+  Import took 0.002850 seconds .
+
