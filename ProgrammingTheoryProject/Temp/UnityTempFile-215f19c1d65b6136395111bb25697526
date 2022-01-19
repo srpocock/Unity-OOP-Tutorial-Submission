@@ -311,4 +311,5 @@
 /define:UNITY_STANDALONE_LINUX_API
 /define:UNITY_TEAM_LICENSE
 /define:USE_SEARCH_ENGINE_API
+"Assets/Scripts/Animal.cs"
 "Assets/Scripts/MenuUIHandler.cs"

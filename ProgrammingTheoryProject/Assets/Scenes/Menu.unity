@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7568756350451863410, guid: b168104322a055c1abca8bb18fba5c5e, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7568756350461257204, guid: b168104322a055c1abca8bb18fba5c5e, type: 3}
       propertyPath: m_Name
       value: Animal_Stag_02
