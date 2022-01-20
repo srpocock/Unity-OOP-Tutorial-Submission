@@ -1,0 +1,12 @@
+Unity Editor version:    2020.3.22f1 (e1a7f79fd887)
+Branch:                  2020.3/staging
+Build type:              Release
+Batch mode:              YES
+System name:             Linux
+Distro version:          #26~20.04.1-Ubuntu SMP Fri Jan 7 16:27:40 UTC 2022
+Kernel version:          5.13.0-25-generic
+Architecture:            x86_64
+Available memory:        15922 MB
+Assertion failed on expression: 'IsFileCreated(kWorkerLicensePath)'
+Assertion failed on expression: 'ok'
+Using pre-set license
