@@ -5,32 +5,34 @@ using UnityEngine;
 public class Animal : MonoBehaviour
 {
 
-    public float turnSpeed = 5.0f;
-    public float moveSpeed = 5.0f;
-    public float jumpStrength = 0.2f;
+    public float turnSmoothTime = 0.2f;
+    private float turnSmoothVelocity;
 
-    public Vector2 directionVector;
+    public float moveSpeed = 5.0f;
+    public float jumpStrength = 0.1f;
+
+    private Vector3 direction;
 
     public Rigidbody animalRb;
     private bool isOnGround = true;
+
+    void Start()
+    {
+        animalRb = GetComponent<Rigidbody>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         Movement();
-
-        if (Input.GetKey(KeyCode.Space) && isOnGround)
-        {
-            Jump();
-        }
     }
 
     void GetInput()
     {
-        directionVector.x = Input.GetAxis("Horizontal");
-        directionVector.y = Input.GetAxis("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
-        //directionVector = directionVector.normalized;
+        direction = new Vector3(horizontal, 0, vertical).normalized;
     }
 
     void Jump()
@@ -41,8 +43,25 @@ public class Animal : MonoBehaviour
 
     void Movement()
     {
+        // 3d traversing movement
         GetInput();
-        transform.Translate(directionVector.x * Time.deltaTime * moveSpeed, 0, directionVector.y * Time.deltaTime * moveSpeed);
+
+        if (direction.magnitude >= 0.1f)
+        {
+            transform.Translate(direction * Time.deltaTime * moveSpeed, Space.World);
+
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+
+            transform.rotation = Quaternion.Euler(0, angle, 0);
+        }
+
+        // Jump Script
+        if (Input.GetKey(KeyCode.Space) && isOnGround)
+        {
+            Jump();
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
