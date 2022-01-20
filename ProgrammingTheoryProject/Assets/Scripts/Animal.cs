@@ -5,8 +5,10 @@ using UnityEngine;
 public class Animal : MonoBehaviour
 {
 
+    public bool isSelected = false;
 
-    public Rigidbody animalRb;
+    protected Rigidbody animalRb;
+    protected Animator animalAnim;
 
     // Rotational
     private float _turnSmoothTime = 0.2f;
@@ -54,6 +56,27 @@ public class Animal : MonoBehaviour
         }
     }
 
+    // Walking animation
+    private float _walkAnimDivider;
+    public float walkAnimDivider
+    {
+        protected set
+        {
+            if (value >= 0f)
+            {
+                _walkAnimDivider = value;
+            }
+            else
+            {
+                Debug.LogError("Max walk animation speed must be non-negative");
+            }
+        }
+        get
+        {
+            return _walkAnimDivider;
+        }
+    }
+
     private float _walkAccel = 30.0f;
     public float walkAccel
     {
@@ -98,8 +121,10 @@ public class Animal : MonoBehaviour
 
     protected virtual void Awake()
     {
+        walkAnimDivider = maxMoveSpeed;
         isOnGround = true;
         animalRb = GetComponent<Rigidbody>();
+        animalAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -125,7 +150,7 @@ public class Animal : MonoBehaviour
 
     void HandleJump()
     {
-        if (Input.GetKey(KeyCode.Space) && isOnGround)
+        if (isSelected && Input.GetKey(KeyCode.Space) && isOnGround)
         {
             Jump();
         }
@@ -134,10 +159,15 @@ public class Animal : MonoBehaviour
     protected virtual void HandleWalk()
     {
         // 3d traversing movement
-        GetWalkInput();
-
 
         float groundSpeed = new Vector2(animalRb.velocity.x, animalRb.velocity.z).magnitude;
+        animalAnim.SetFloat("Speed_f", groundSpeed / walkAnimDivider);
+
+        if (!isSelected) {
+            return;
+        }
+
+        GetWalkInput();
 
         if (inputDirection.magnitude >= 0.1f)
         {

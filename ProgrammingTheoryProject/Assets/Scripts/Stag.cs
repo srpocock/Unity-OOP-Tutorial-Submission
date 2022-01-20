@@ -5,13 +5,14 @@ using UnityEngine;
 public class Stag : Animal
 {
 
-    private float chargeSpeed = 13.0f;
+    private float chargeSpeed = 15.0f;
     public bool isCharging { private set; get; }
     public bool hasCharged { private set; get; }
 
     protected override void Awake()
     {
         base.Awake();
+        walkAnimDivider = chargeSpeed;
         hasCharged = false;
         isCharging = false;
     }
@@ -25,7 +26,7 @@ public class Stag : Animal
 
     void HandleCharge()
     {
-        if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && isOnGround && !hasCharged)
+        if (isSelected && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && isOnGround && !hasCharged)
         {
             Charge();
         }
@@ -48,6 +49,11 @@ public class Stag : Animal
         if(!isCharging)
         {
             base.HandleWalk();
+        }
+        else
+        {
+            float groundSpeed = new Vector2(animalRb.velocity.x, animalRb.velocity.z).magnitude;
+            animalAnim.SetFloat("Speed_f", groundSpeed / walkAnimDivider);
         }
     }
 

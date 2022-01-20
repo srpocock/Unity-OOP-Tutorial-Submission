@@ -1,6 +1,0 @@
-# Starting compiling Assembly-CSharp.dll
-<<<<<<< HEAD
-/home/simon/Unity/Hub/Editor/2020.3.22f1/Editor/Data/Tools/RoslynScripts/unity_csc.sh /noconfig @Temp/UnityTempFile-5b56e8d966b42fc509838a10e91e43ab
-=======
-/home/simon/Unity/Hub/Editor/2020.3.22f1/Editor/Data/Tools/RoslynScripts/unity_csc.sh /noconfig @Temp/UnityTempFile-87233dbf6eaf3246992b86f83814e3a5
->>>>>>> animal-class
