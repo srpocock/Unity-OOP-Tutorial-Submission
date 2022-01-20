@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fox : Animal
 {
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
         jumpStrength = 10.0f;

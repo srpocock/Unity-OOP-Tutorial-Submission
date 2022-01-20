@@ -228,7 +228,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7568756350451863410, guid: b168104322a055c1abca8bb18fba5c5e, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7568756350461254304, guid: b168104322a055c1abca8bb18fba5c5e, type: 3}
       propertyPath: m_IsActive
@@ -334,7 +334,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac6e9178da4e020d9f95f8331ff84d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSmoothTime: 0.2
   animalRb: {fileID: 416766017}
 --- !u!1 &621344150
 GameObject:
@@ -522,7 +521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99908bb199d7d3b1fa6ea920ec46c823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSmoothTime: 0.2
   animalRb: {fileID: 1190309061}
 --- !u!1 &2011574932
 GameObject:

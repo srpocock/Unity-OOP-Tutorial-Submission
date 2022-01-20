@@ -6,10 +6,18 @@ public class Stag : Animal
 {
 
     private float chargeSpeed = 13.0f;
-    private bool hasCharged = false;
+    public bool isCharging { private set; get; }
+    public bool hasCharged { private set; get; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        hasCharged = false;
+        isCharging = false;
+    }
 
     // Update is called once per frame
-    public override void FixedUpdate()
+    protected override void FixedUpdate()
     {
         base.FixedUpdate();
         HandleCharge();
@@ -28,11 +36,27 @@ public class Stag : Animal
         Vector3 chargeDirection = transform.forward;
         
         animalRb.AddForce(chargeDirection * chargeSpeed, ForceMode.Impulse);
+        isCharging = true;
         hasCharged = true;
 
+        StartCoroutine(ChargingTimer());
         StartCoroutine(WaitToCharge());
-        
     }
+
+    protected override void HandleWalk()
+    {
+        if(!isCharging)
+        {
+            base.HandleWalk();
+        }
+    }
+
+    IEnumerator ChargingTimer()
+    {
+        yield return new WaitForSeconds(1);
+        isCharging = false;
+    }
+
 
     IEnumerator WaitToCharge()
     {
