@@ -7,24 +7,26 @@ public class Animal : MonoBehaviour
 
     public float turnSmoothTime = 0.2f;
     private float turnSmoothVelocity;
+    protected float angle;
 
     public float moveSpeed = 5.0f;
-    public float jumpStrength = 0.1f;
+    protected float jumpStrength = 5.0f;
 
-    private Vector3 direction;
+    private Vector3 inputDirection;
 
     public Rigidbody animalRb;
-    private bool isOnGround = true;
+    protected bool isOnGround = true;
 
-    void Start()
+    public virtual void Start()
     {
         animalRb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
-        Movement();
+        HandleWalk();
+        HandleJump();
     }
 
     void GetInput()
@@ -32,7 +34,7 @@ public class Animal : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        direction = new Vector3(horizontal, 0, vertical).normalized;
+        inputDirection = new Vector3(horizontal, 0, vertical).normalized;
     }
 
     void Jump()
@@ -41,30 +43,32 @@ public class Animal : MonoBehaviour
         isOnGround = false;
     }
 
-    void Movement()
+    void HandleJump()
+    {
+        if (Input.GetKey(KeyCode.Space) && isOnGround)
+        {
+            Jump();
+        }
+    }
+
+    void HandleWalk()
     {
         // 3d traversing movement
         GetInput();
 
-        if (direction.magnitude >= 0.1f)
+        if (inputDirection.magnitude >= 0.1f)
         {
-            transform.Translate(direction * Time.deltaTime * moveSpeed, Space.World);
+            transform.Translate(inputDirection * Time.deltaTime * moveSpeed, Space.World);
 
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
             transform.rotation = Quaternion.Euler(0, angle, 0);
         }
 
-        // Jump Script
-        if (Input.GetKey(KeyCode.Space) && isOnGround)
-        {
-            Jump();
-        }
-
     }
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
