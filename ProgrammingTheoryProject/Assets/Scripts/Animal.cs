@@ -5,7 +5,7 @@ using UnityEngine;
 public class Animal : MonoBehaviour
 {
 
-    public float turnSmoothTime = 0.2f;
+    public float turnSmoothTime = 0.05f;
     private float turnSmoothVelocity;
 
     public float moveSpeed = 5.0f;
@@ -48,12 +48,15 @@ public class Animal : MonoBehaviour
 
         if (direction.magnitude >= 0.1f)
         {
-            transform.Translate(direction * Time.deltaTime * moveSpeed, Space.World);
-
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
             transform.rotation = Quaternion.Euler(0, angle, 0);
+
+            if(Mathf.Abs(Mathf.DeltaAngle(targetAngle, angle)) < 100)
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
+            }
         }
 
         // Jump Script
