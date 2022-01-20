@@ -5,13 +5,13 @@ using UnityEngine;
 public class Stag : Animal
 {
 
-    private float chargeSpeed = 2.0f;
+    private float chargeSpeed = 13.0f;
     private bool hasCharged = false;
 
     // Update is called once per frame
-    public override void Update()
+    public override void FixedUpdate()
     {
-        base.Update();
+        base.FixedUpdate();
         HandleCharge();
     }
 
@@ -26,14 +26,9 @@ public class Stag : Animal
     void Charge()
     {
         Vector3 chargeDirection = transform.forward;
+        
+        animalRb.AddForce(chargeDirection * chargeSpeed, ForceMode.Impulse);
         hasCharged = true;
-
-        float timePassed = 0.0f;
-        while (timePassed < 1.0f)
-        {
-            timePassed += Time.deltaTime;
-            transform.Translate(chargeDirection * Time.deltaTime * chargeSpeed, Space.World);
-        }
 
         StartCoroutine(WaitToCharge());
         
@@ -41,7 +36,7 @@ public class Stag : Animal
 
     IEnumerator WaitToCharge()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         hasCharged = false;
     }
 

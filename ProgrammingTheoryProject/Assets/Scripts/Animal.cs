@@ -9,7 +9,21 @@ public class Animal : MonoBehaviour
     private float turnSmoothVelocity;
     protected float angle;
 
-    public float moveSpeed = 5.0f;
+    protected float maxMoveSpeed = 6.0f;
+
+    private float _moveSpeed = 30.0f;
+    public float moveSpeed { 
+    set
+    {
+        _moveSpeed = value;
+    }
+    get
+    {
+        return _moveSpeed;
+    }
+    
+    }
+
     protected float jumpStrength = 5.0f;
 
     private Vector3 inputDirection;
@@ -17,13 +31,13 @@ public class Animal : MonoBehaviour
     public Rigidbody animalRb;
     protected bool isOnGround = true;
 
-    public virtual void Start()
+    public virtual void Awake()
     {
         animalRb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    public virtual void Update()
+    public virtual void FixedUpdate()
     {
         HandleWalk();
         HandleJump();
@@ -56,14 +70,20 @@ public class Animal : MonoBehaviour
         // 3d traversing movement
         GetInput();
 
+        float groundSpeed = new Vector2(animalRb.velocity.x, animalRb.velocity.z).magnitude;
+
         if (inputDirection.magnitude >= 0.1f)
         {
-            transform.Translate(inputDirection * Time.deltaTime * moveSpeed, Space.World);
 
             float targetAngle = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
 
-            transform.rotation = Quaternion.Euler(0, angle, 0);
+            animalRb.rotation = Quaternion.Euler(0, angle, 0);
+        
+            if (groundSpeed < maxMoveSpeed)
+            {
+                animalRb.AddForce(inputDirection * moveSpeed);
+            }
         }
 
     }

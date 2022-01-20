@@ -5,12 +5,11 @@ using UnityEngine;
 public class Fox : Animal
 {
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
-        
+        base.Awake();
         jumpStrength = 10.0f;
-        moveSpeed = 10.0f;
+        maxMoveSpeed = 8.0f;
         turnSmoothTime = 0.1f;
     }
 }
