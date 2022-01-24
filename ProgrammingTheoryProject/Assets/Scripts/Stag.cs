@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// INHERITANCE
 public class Stag : Animal
 {
 
     private float chargeSpeed = 15.0f;
+    // ENCAPSULATION
     public bool isCharging { private set; get; }
     public bool hasCharged { private set; get; }
 
+    // POLYMORPHISM
     protected override void Awake()
     {
         base.Awake();
@@ -17,7 +20,7 @@ public class Stag : Animal
         isCharging = false;
     }
 
-    // Update is called once per frame
+    // POLYMORPHISM
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -32,6 +35,7 @@ public class Stag : Animal
         }
     }
 
+    // ABSTRACTION
     void Charge()
     {
         Vector3 chargeDirection = transform.forward;
@@ -44,6 +48,7 @@ public class Stag : Animal
         StartCoroutine(WaitToCharge());
     }
 
+    // POLYMORPHISM
     protected override void HandleWalk()
     {
         if(!isCharging)

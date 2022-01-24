@@ -10,6 +10,7 @@ public class Animal : MonoBehaviour
     protected Rigidbody animalRb;
     protected Animator animalAnim;
 
+    // ENCAPSULATION
     // Rotational
     private float _turnSmoothTime = 0.2f;
     public float turnSmoothTime
@@ -35,6 +36,7 @@ public class Animal : MonoBehaviour
     protected float angle;
     private Vector3 inputDirection;
 
+    // ENCAPSULATION
     // Walking forces
     private float _maxMoveSpeed = 6.0f;
     public float maxMoveSpeed
@@ -56,6 +58,7 @@ public class Animal : MonoBehaviour
         }
     }
 
+    // ENCAPSULATION
     // Walking animation
     private float _walkAnimDivider;
     public float walkAnimDivider
@@ -77,6 +80,7 @@ public class Animal : MonoBehaviour
         }
     }
 
+    // ENCAPSULATION
     private float _walkAccel = 30.0f;
     public float walkAccel
     {
@@ -97,6 +101,7 @@ public class Animal : MonoBehaviour
         }
     }
 
+    // ENCAPSULATION
     // Jump
     private float _jumpStrength = 5.0f;
     public float jumpStrength
@@ -117,6 +122,8 @@ public class Animal : MonoBehaviour
             return _jumpStrength;
         }
     }
+
+    // ENCAPSULATION
     public bool isOnGround { protected set; get; }
 
     protected virtual void Awake()
@@ -142,6 +149,7 @@ public class Animal : MonoBehaviour
         inputDirection = new Vector3(horizontal, 0, vertical).normalized;
     }
 
+    // ABSTRACTION
     void Jump()
     {
         animalRb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
